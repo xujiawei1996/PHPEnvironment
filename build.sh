@@ -1,8 +1,13 @@
 #!/bin/bash
 
-#time=`date "+%Y-%m-%d %H:%M:%S"`
-#echo $time;
-#sleep 1
-#echo $time;
-#current_path=$(pwd)
-#echo $current_path
+#if [ $USER != "root" ]; then  sudo su; fi
+#mkdir -p /home/soft
+#cd /home/soft
+#touch build.log
+
+log='/home/soft/build.log'
+
+#安装PHP7
+#source ./phpBuild.sh $log
+
+source ./nginxBuild.sh $log
