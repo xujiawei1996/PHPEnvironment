@@ -14,8 +14,8 @@ nginx="nginx-"${nginxVersion}
 if [ $USER != "root" ];then sudo su;fi
 
 cd /home/soft && wget http://mirrors.sohu.com/nginx/$nginx.tar.gz
-#if [ $?==0 ];then echo ${nginx}" download success" >> $log;
-#else echo ${nginx}" download fail" >> $log;fi
+if [ $?==0 ];then echo ${nginx}" download success" >> $log;
+else echo ${nginx}" download fail" >> $log;fi
 
 tar xzf $nginx.tar.gz
 cd /home/soft/$nginx 
