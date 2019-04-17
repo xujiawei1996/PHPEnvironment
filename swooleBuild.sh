@@ -20,7 +20,7 @@ tar -zxvf v0.14.0.tar.gz
 cd hiredis-0.14.0 && make && make install
 if [ $?==0 ];then echo ${swoole}" download success" >> $log;
 else echo ${swoole}" download fail" >> $log;fi
-cd .. && rm -rf v0.14.0.tar.gz
+cd ..
 
 
 #
@@ -36,7 +36,7 @@ tar zxvf nghttp2-1.34.0.tar.gz
 cd nghttp2-1.34.0
 ./configure
 make && make install
-cd .. && rm nghttp2-1.34.0.tar.gz -rf
+cd ..
 
 #
 # 编译swoole
@@ -49,4 +49,4 @@ make && make install
 if [ $?==0 ];then echo ${swoole}" install success" >> $log;
 else echo ${swoole}" install fail" >> $log;fi
 make clean
-cd .. && r m -rf v$swooleVersion.tar.gz
+cd ..

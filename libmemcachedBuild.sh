@@ -19,7 +19,7 @@ cd $libmemcached
 make && make install
 if [ $?==0 ];then echo ${libmemcached}" install success" >> $log;
 else echo ${libmemcached}" install fail" >> $log;fi
-cd .. && rm -rf $libmemcached.tar.gz
+cd ..
 
 
 
@@ -33,5 +33,5 @@ cd php-memcached-php7/
 make && make install
 if [ $?==0 ];then echo "memcached-2.2.0 install success" >> $log;
 else echo "memcached-2.2.0 install fail" >> $log;fi
-cd .. && rm -rf php7.zip
+cd ..
 
