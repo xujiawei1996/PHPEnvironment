@@ -7,15 +7,6 @@ current_path=$(pwd)
 php7Version=`cat $current_path/conf.ini | grep php7 | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 php7="php-"${php7Version}
 
-#
-# 安装php所需要的依赖
-#
-yum install -y libxml2 
-yum install -y libxml2-devel
-yum install -y curl curl-devel
-yum install -y libpng libpng-devel
-yum install -y freetype-devel
-yum install -y libxslt-devel
 
 cd /home/soft
 
@@ -25,7 +16,7 @@ cd /home/soft
 if [ ! -f $php7.tar.gz ];then wget http://mirrors.sohu.com/php/$php7.tar.gz; fi
 
 if [ $?==0 ];then echo ${php7}" download success" >> $log;
-else echo ${php7}" download fail" >> $log;fi
+else echo ${php7}" download fail" >> $log;exit;fi
 
 #
 # 编译PHP引擎
@@ -68,7 +59,7 @@ tar zxvf ${php7}.tar.gz && cd ${php7}
     --enable-zip
 make && make install && make clean
 if [ $?==0 ];then echo ${php7}" install success" >> $log;
-else echo ${php7}" install fail" >> $log;fi
+else echo ${php7}" install fail" >> $log;exit;fi
 
 #复制配置文件
 cp -R  /home/soft/${php7}/sapi/fpm/php-fpm.conf /home/soft/php7/etc/php-fpm.conf
@@ -80,7 +71,8 @@ cp -R /home/soft/php7/sbin/php-fpm /etc/init.d/php-fpm
 cp -R /home/soft/php7/bin/php /usr/bin/php7
 
 #启动php-fpm
-/etc/init.d/php-fpm
+#/etc/init.d/php-fpm
 
 if [ $?==0 ];then echo "php7 start success" >> $log;
-else echo "php7 start fail,Please perform the '/etc/init.d/php-fpm' check" >> $log;fi
+else echo "php7 start fail,Please perform the '/etc/init.d/php-fpm' check" >> $log;exit;fi
+cd $current_path
