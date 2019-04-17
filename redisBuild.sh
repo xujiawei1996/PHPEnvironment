@@ -7,7 +7,7 @@ current_path=$(pwd)
 
 cd /home/soft
 #
-# 安装php所需要的依赖
+# 安装redis所需要的依赖
 #
 
 # 下载redis
