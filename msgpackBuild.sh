@@ -28,4 +28,4 @@ tar zxvf $msgpack.tgz && cd $msgpack
 make && make install
 if [ $?==0 ];then echo ${msgpack}" install success" >> $log;
 else echo ${msgpack}" install fail" >> $log;fi
-cd ..
+cd $current_path

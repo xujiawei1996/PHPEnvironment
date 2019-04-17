@@ -27,4 +27,4 @@ touch /etc/init.d/nginx
 cat $current_path/nginxStart.conf >> /etc/init.d/nginx
 chkconfig --add /etc/init.d/nginx
 chmod a+x /etc/init.d/nginx
-#service nginx start
+cd $current_path

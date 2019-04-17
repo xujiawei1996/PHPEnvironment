@@ -27,3 +27,4 @@ git checkout php7-ipv6
 make && make install
 if [ $?==0 ];then echo ${redis}" install success" >> $log;
 else echo ${redis}" install fail" >> $log;fi
+cd $current_path

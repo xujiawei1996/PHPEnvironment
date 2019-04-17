@@ -17,4 +17,4 @@ tar zxvf $xdebug.tgz && cd $xdebug
 /home/soft/php7/bin/phpize
 ./configure --with-php-config=/home/soft/php7/bin/php-config
 make && make install
-cd ..
+cd $current_path

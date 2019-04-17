@@ -85,3 +85,4 @@ cp -R /home/soft/php7/bin/php /usr/bin/php7
 
 if [ $?==0 ];then echo "php7 start success" >> $log;
 else echo "php7 start fail,Please perform the '/etc/init.d/php-fpm' check" >> $log;fi
+cd $current_path

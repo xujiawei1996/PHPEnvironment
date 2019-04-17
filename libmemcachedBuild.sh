@@ -33,5 +33,5 @@ cd php-memcached-php7/
 make && make install
 if [ $?==0 ];then echo "memcached-2.2.0 install success" >> $log;
 else echo "memcached-2.2.0 install fail" >> $log;fi
-cd ..
+cd $current_path
 
