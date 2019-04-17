@@ -2,8 +2,6 @@
 
 log=$1
 
-#安装nginx所需要的依赖
-yum -y install pcre-devel openssl openssl-devel
 
 #读取配置文件
 current_path=$(pwd)
@@ -13,11 +11,9 @@ nginx="nginx-"${nginxVersion}
 cd /home/soft
 
 #安装nginx
-if [ $USER != "root" ];then sudo su;fi
-
 cd /home/soft && wget http://mirrors.sohu.com/nginx/$nginx.tar.gz
 if [ $?==0 ];then echo ${nginx}" download success" >> $log;
-else echo ${nginx}" download fail" >> $log;fi
+else echo ${nginx}" download fail" >> $log;exit;fi
 
 tar xzf $nginx.tar.gz
 cd /home/soft/$nginx 

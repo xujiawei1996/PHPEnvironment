@@ -18,20 +18,20 @@ cd $libmemcached
 ./configure --prefix=/home/soft/libmemcached --with-memcached
 make && make install
 if [ $?==0 ];then echo ${libmemcached}" install success" >> $log;
-else echo ${libmemcached}" install fail" >> $log;fi
+else echo ${libmemcached}" install fail" >> $log;exit;fi
 cd ..
 
 
 
-wget https://github.com/php-memcached-dev/php-memcached/archive/php7.zip
+git clone https://github.com/php-memcached-dev/php-memcached.git
 if [ $?==0 ];then echo "memcached-2.2.0 download success" >> $log;
 else echo "memcached-2.2.0 download fail" >> $log;fi
-unzip php7.zip
-cd php-memcached-php7/ 
+cd php-memcached/
+git checkout php7
 /home/soft/php7/bin/phpize
-./configure --with-php-config=/home/soft/php7/bin/php-config --disable-memcached-sasl
+./configure --with-php-config=/home/soft/php7/bin/php-config --with-libmemcached-dir=/home/soft/libmemcached --disable-memcached-sasl
 make && make install
 if [ $?==0 ];then echo "memcached-2.2.0 install success" >> $log;
-else echo "memcached-2.2.0 install fail" >> $log;fi
+else echo "memcached-2.2.0 install fail" >> $log;exit;fi
 cd $current_path
 
