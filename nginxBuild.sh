@@ -24,7 +24,7 @@ cd /home/soft/$nginx
 ./configure --prefix=/home/soft/nginx --sbin-path=/home/soft/nginx/sbin/nginx  --conf-path=/home/soft/nginx/conf/nginx.conf   
 make && make install
 touch /etc/init.d/nginx
-cat $current_path/nginx.conf >> /etc/init.d/nginx
+cat $current_path/nginxStart.conf >> /etc/init.d/nginx
 chkconfig --add /etc/init.d/nginx
 chmod a+x /etc/init.d/nginx
 #service nginx start

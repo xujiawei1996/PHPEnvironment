@@ -12,6 +12,7 @@ php7="php-"${php7Version}
 #
 yum install -y libxml2 
 yum install -y libxml2-devel
+yum install -y openssl openssl-dev openssl-devel
 yum install -y curl curl-devel
 yum install -y libpng libpng-devel
 yum install -y freetype-devel
@@ -80,7 +81,7 @@ cp -R /home/soft/php7/sbin/php-fpm /etc/init.d/php-fpm
 cp -R /home/soft/php7/bin/php /usr/bin/php7
 
 #启动php-fpm
-/etc/init.d/php-fpm
+#/etc/init.d/php-fpm
 
 if [ $?==0 ];then echo "php7 start success" >> $log;
 else echo "php7 start fail,Please perform the '/etc/init.d/php-fpm' check" >> $log;fi
