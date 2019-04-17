@@ -10,6 +10,8 @@ current_path=$(pwd)
 nginxVersion=`cat $current_path/conf.ini | grep nginx | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 nginx="nginx-"${nginxVersion}
 
+cd /home/soft
+
 #安装nginx
 if [ $USER != "root" ];then sudo su;fi
 
