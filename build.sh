@@ -9,6 +9,10 @@ log='/home/soft/build.log'
 
 #安装基础扩展
 yum install -y dos2unix
+dos2unix $current_path/*.sh
+cd $current_path
+chmod a+x *.sh
+
 yum -y install gcc+ gcc-c++
 
 
@@ -36,12 +40,6 @@ yum install -y autoconf
 #
 yum install -y autoconf
 yum install -y m4
-
-
-cd $current_path
-chmod a+x *.sh
-dos2unix $current_path/*.sh
-
 
 #安装PHP7
 source $current_path/phpBuild.sh $log
