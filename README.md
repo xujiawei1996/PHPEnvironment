@@ -3,6 +3,7 @@
 
 要求：
 1.Linux version > 2.3.32
+
 2.gcc version > 4.8
 你可以通过```cat /proc/version```查看版本
 
@@ -19,6 +20,7 @@
 所有软件的存放目录为：/home/soft
 日志文件为build.log
 关于php7，会在ect/init.d/生成php-fpm启动脚本，你可以通过```service php-fpm start```启动,```service php-fpm stop```停止
+
 关于nginx，会在ect/init.d/生成nginx启动脚本，你可以通过```service nginx start```启动,```service nginx stop```停止
 
 目前没有php5，后续会跟进。也希望大家可以提交自己的脚本代码。
