@@ -66,12 +66,12 @@ cp -R  /home/soft/${php7}/sapi/fpm/php-fpm.conf /home/soft/php7/etc/php-fpm.conf
 cp -R /home/soft/${php7}/php.ini-development /home/soft/php7/lib/php.ini
 cp -R /home/soft/php7/etc/php-fpm.d/www.conf.default /home/soft/php7/etc/php-fpm.d/www.conf
 #复制php-fpm到开机启动项中
-cp -R /home/soft/php7/sbin/php-fpm /etc/init.d/php-fpm
+#cp -R /home/soft/php7/sbin/php-fpm /etc/init.d/php-fpm
+touch /etc/init.d/php-fpm
+cat $current_path/phpfpmStart.conf >> /etc/init.d/php-fpm
+chkconfig --add /etc/init.d/php-fpm
 #复制php到环境变量
 cp -R /home/soft/php7/bin/php /usr/bin/php7
-
-#启动php-fpm
-#/etc/init.d/php-fpm
 
 if [ $?==0 ];then echo "php7 start success" >> $log;
 else echo "php7 start fail,Please perform the '/etc/init.d/php-fpm' check" >> $log;exit;fi

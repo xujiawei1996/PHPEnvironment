@@ -10,6 +10,8 @@ log='/home/soft/build.log'
 #安装基础扩展
 yum install -y dos2unix
 dos2unix $current_path/*.sh
+dos2unix $current_path/*.conf
+
 cd $current_path
 chmod a+x *.sh
 
