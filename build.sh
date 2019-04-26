@@ -7,50 +7,69 @@ touch build.log
 
 log='/home/soft/build.log'
 
-#安装基础扩展
-yum install -y dos2unix
-dos2unix $current_path/*.sh
-dos2unix $current_path/*.conf
+# 读取配置信息
+php7Version=`cat $current_path/conf.ini | grep 'php7Version' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+php7orNot=`cat $current_path/conf.ini | grep 'php7orNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-cd $current_path
-chmod a+x *.sh
+nginxVersion=`cat $current_path/conf.ini | grep 'nginxVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+nginxorNot=`cat $current_path/conf.ini | grep 'nginxorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-yum -y install gcc+ gcc-c++
+redisVersion=`cat $current_path/conf.ini | grep 'redisVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+redisorNot=`cat $current_path/conf.ini | grep 'redisorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
+swooleVersion=`cat $current_path/conf.ini | grep 'swooleVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+swooleorNot=`cat $current_path/conf.ini | grep 'swooleorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-#安装nginx所需要的依赖
-yum -y install pcre-devel openssl openssl-devel
+libmemcachedVersion=`cat $current_path/conf.ini | grep 'libmemcachedVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+libmemcachedorNot=`cat $current_path/conf.ini | grep 'libmemcachedorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-#
-# 安装php所需要的依赖
-#
-yum install -y libxml2
-yum install -y libxml2-devel
-yum install -y openssl openssl-dev openssl-devel
-yum install -y curl curl-devel
-yum install -y libpng libpng-devel
-yum install -y freetype-devel
-yum install -y libxslt-devel
+msgpackVersion=`cat $current_path/conf.ini | grep 'msgpackVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+msgpackorNot=`cat $current_path/conf.ini | grep 'msgpackorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-#
-# 安装redis所需要的依赖
-#
-yum install -y autoconf
+xdebugVersion=`cat $current_path/conf.ini | grep 'xdebugVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+xdebugorNot=`cat $current_path/conf.ini | grep 'xdebugorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-#
-# 安装swoole所需要的依赖
-#
-yum install -y autoconf
-yum install -y m4
+if [ $php7orNot == 1 ]
+then
+    cd $current_path
+    source $current_path/phpBuild.sh $log $php7Version
+fi
 
-#安装PHP7
-source $current_path/phpBuild.sh $log
-source $current_path/nginxBuild.sh $log
-source $current_path/redisBuild.sh $log
-source $current_path/libmemcachedBuild.sh $log
-source $current_path/swooleBuild.sh $log
-source $current_path/xdebugBuild.sh $log
-source $current_path/msgpackBuild.sh $log
+if [ $nginxorNot == 1 ]
+then
+    cd $current_path
+    source $current_path/nginxBuild.sh $log $nginxVersion
+fi
+
+if [ $redisorNot == 1 ]
+then
+    cd $current_path
+    source $current_path/redisBuild.sh $log $redisVersion
+fi
+
+if [ $libmemcachedorNot == 1 ]
+then
+    cd $current_path
+    source $current_path/libmemcachedBuild.sh $log $libmemcachedVersion
+fi
+
+if [ $swooleorNot == 1 ]
+then
+    cd $current_path
+    source $current_path/swooleBuild.sh $log $swooleVersion
+fi
+
+if [ $msgpackorNot == 1 ]
+then
+    cd $current_path
+    source $current_path/xdebugBuild.sh $log $msgpackVersion
+fi
+
+if [ $xdebugorNot == 1 ]
+then
+    cd $current_path
+    source $current_path/msgpackBuild.sh $log $xdebugVersion
+fi
 
 cd /home/soft
 rm -rf *.tar *.gz *.tgz

@@ -2,6 +2,7 @@
 一个快速php7+swoole+nginx部署脚本
 
 要求：
+
 1.Linux version > 2.3.32
 
 2.gcc version > 4.8

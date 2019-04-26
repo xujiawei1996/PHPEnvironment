@@ -1,15 +1,17 @@
 #!/bin/bash
 
 log=$1
+$version=$2
 
 #读取配置文件
 current_path=$(pwd)
-libmemcachedVersion=`cat $current_path/conf.ini | grep libmemcached | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 libmemcached="libmemcached-"${libmemcachedVersion}
+libmemcachedtar=${libmemcached}.tar.gz
 
 cd /home/soft
 
-wget https://launchpad.net/libmemcached/1.0/$libmemcachedVersion/+download/$libmemcached.tar.gz
+wget https://launchpad.net/libmemcached/1.0/$libmemcachedVersion/+download/$libmemcachedtar
+
 if [ $?==0 ];then echo ${libmemcached}" download success" >> $log;
 else echo ${libmemcached}" download fail" >> $log;fi
 tar -zxvf $libmemcached.tar.gz
