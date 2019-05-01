@@ -4,8 +4,8 @@ log=$1
 
 #读取配置文件
 current_path=$(pwd)
-swooleVersion=`cat $current_path/conf.ini | grep swoole | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
-swoole="swoole-src-"${swooleVersion}
+swoole="swoole-"$2
+swooletar=${swoole}.tgz
 
 cd /home/soft
 
@@ -35,21 +35,25 @@ cd /home/soft
 #
 # 下载swoole
 #
-if [ ! -f $swoole.tar.gz ];then git clone https://github.com/swoole/swoole-src.git; fi
-if [ $?==0 ];then echo ${swoole}" download success" >> $log;
-else echo ${swoole}" download fail" >> $log;exit
+if [ ! -f $swooletar ];then wget https://pecl.php.net/get/${swooletar}; fi
+
+if [ -f $swooletar ]
+then echo ${swooletar}" download success" >> $log;
+else echo ${swooletar}" download fail" >> $log;exit;
 fi
 
 #
 # 编译swoole
 #
 cd /home/soft
-cd swoole-src && git checkout v$swooleVersion
+tar -zxvf ${swooletar}
+cd $swoole
 /home/soft/php7/bin/phpize
 ./configure --with-php-config=/home/soft/php7/bin/php-config  --enable-sockets --enable-openssl --enable-http2 --enable-mysqlnd
 make && make install  
 if [ $?==0 ];then echo ${swoole}" install success" >> $log;
 else echo ${swoole}" install fail" >> $log;exit
 fi
-make clean
-cd $current_path
+
+rm -rf /home/soft/$swooletar
+mv /home/soft/$swoole /home/soft/install/$swoole

@@ -1,28 +1,26 @@
 #!/bin/bash
 
 log=$1
+version=$2
 
 #读取配置文件
 current_path=$(pwd)
-php7Version=`cat $current_path/conf.ini | grep php7 | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
-php7="php-"${php7Version}
-
+php7="php-"$2
+php7tar=${php7}.tar.gz
 
 cd /home/soft
-
 #
 # 下载php7
 #
-if [ ! -f $php7.tar.gz ];then wget http://mirrors.sohu.com/php/$php7.tar.gz; fi
+if [ ! -f $php7tar ];then wget http://mirrors.sohu.com/php/$php7tar; fi
 
-if [ $?==0 ];then echo ${php7}" download success" >> $log;
+if [ -f $php7tar ];then echo ${php7}" download success" >> $log;
 else echo ${php7}" download fail" >> $log;exit;fi
 
 #
 # 编译PHP引擎
 #
-cd /home/soft
-tar zxvf ${php7}.tar.gz && cd ${php7}
+tar zxvf $php7tar && cd ${php7}
 ./configure --prefix=/home/soft/php7 --with-curl \
     --with-freetype-dir \
     --with-gd \
@@ -58,6 +56,7 @@ tar zxvf ${php7}.tar.gz && cd ${php7}
     --enable-xml \
     --enable-zip
 make && make install && make clean
+
 if [ $?==0 ];then echo ${php7}" install success" >> $log;
 else echo ${php7}" install fail" >> $log;exit;fi
 
@@ -66,13 +65,14 @@ cp -R  /home/soft/${php7}/sapi/fpm/php-fpm.conf /home/soft/php7/etc/php-fpm.conf
 cp -R /home/soft/${php7}/php.ini-development /home/soft/php7/lib/php.ini
 cp -R /home/soft/php7/etc/php-fpm.d/www.conf.default /home/soft/php7/etc/php-fpm.d/www.conf
 #复制php-fpm到开机启动项中
-#cp -R /home/soft/php7/sbin/php-fpm /etc/init.d/php-fpm
 touch /etc/init.d/php-fpm
 cat $current_path/phpfpmStart.conf >> /etc/init.d/php-fpm
 chkconfig --add /etc/init.d/php-fpm
 #复制php到环境变量
 cp -R /home/soft/php7/bin/php /usr/bin/php7
 
-if [ $?==0 ];then echo "php7 start success" >> $log;
-else echo "php7 start fail,Please perform the '/etc/init.d/php-fpm' check" >> $log;exit;fi
-cd $current_path
+rm -rf /home/soft/$php7tar
+mv /home/soft/$php7 /home/soft/install/$php7
+
+echo ${php7}"success please input 'service php-fpm start' to start php-fpm" && input 'php7 -v' check version>> $log;
+

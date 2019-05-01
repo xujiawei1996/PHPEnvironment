@@ -4,8 +4,8 @@ log=$1
 
 #读取配置文件
 current_path=$(pwd)
-msgpackVersion=`cat $current_path/conf.ini | grep msgpack | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
-msgpack="msgpack-"${msgpackVersion}
+msgpack="msgpack-"$2
+msgpacktar=${msgpacktar}.tgz
 
 cd /home/soft
 
@@ -14,18 +14,22 @@ cd /home/soft
 #
 
 # 下载msgpack
-if [ ! -f $msgpack.tgz ]; then  wget https://pecl.php.net/get/$msgpack.tgz; fi
-if [ $?==0 ];then echo ${msgpack}" download success" >> $log;
-else echo ${msgpack}" download fail" >> $log;fi
+if [ ! -f $msgpacktar ]; then  wget https://pecl.php.net/get/$msgpack.tgz; fi
+
+if [ -f $msgpacktar ];then echo ${msgpacktar}" download success" >> $log;
+else echo ${msgpacktar}" download fail" >> $log;exit;fi
 
 #
 # 安装Redis扩展
 #
 cd /home/soft
-tar zxvf $msgpack.tgz && cd $msgpack
+tar zxvf ${msgpacktar} && cd ${msgpack}
 /home/soft/php7/bin/phpize
 ./configure --with-php-config=/home/soft/php7/bin/php-config
 make && make install
+
 if [ $?==0 ];then echo ${msgpack}" install success" >> $log;
-else echo ${msgpack}" install fail" >> $log;fi
-cd $current_path
+else echo ${msgpack}" install fail" >> $log;exit;fi
+
+rm -rf /home/soft/$msgpacktar
+mv /home/soft/$msgpack /home/soft/install/$msgpack
