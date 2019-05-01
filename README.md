@@ -19,12 +19,15 @@
 其中php7的memcached扩展默认为2.2.0
 
 所有软件的存放目录为：/home/soft
-日志文件为build.log
+所有编译后的软件存放目录为:/home/soft/install
+日志文件为/home/soft/build.log
 关于php7，会在ect/init.d/生成php-fpm启动脚本，你可以通过```service php-fpm start```启动,```service php-fpm stop```停止
 
 关于nginx，会在ect/init.d/生成nginx启动脚本，你可以通过```service nginx start```启动,```service nginx stop```停止
 
-目前没有php5，后续会跟进。也希望大家可以提交自己的脚本代码。
+注：
+  -  目前没有php5,后续会跟进.也希望大家可以提交自己的脚本代码.
+  -  软件下载不成功可能是因为从pecl下载的时候出错.可以自己从pecl下载,通过sz上床到/home/soft下,再执行脚本。
 
 # PHP+swoole+nginx deployment scripts
 A quick php7+swoole+nginx deployment script
@@ -54,7 +57,9 @@ The php7 memcached extension defaults to 2.2.0
 
 The directory for all software is: /home/soft
 
-The log file is build.log
+All compiled software is stored in the directory: /home/soft/install
+
+The log file is /home/soft/build.log
 
 In about php7, ect/init. D/generate PHP - FPM startup scripts, you can use the ` ` ` service PHP - FPM start ` ` ` start, ` ` ` service PHP - FPM stop ` ` ` stop
 

@@ -20,8 +20,8 @@ redisorNot=`cat $current_path/conf.ini | grep 'redisorNot' | awk -F':' '{ print 
 swooleVersion=`cat $current_path/conf.ini | grep 'swooleVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 swooleorNot=`cat $current_path/conf.ini | grep 'swooleorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
-libmemcachedVersion=`cat $current_path/conf.ini | grep 'libmemcachedVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
-libmemcachedorNot=`cat $current_path/conf.ini | grep 'libmemcachedorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+memcachedVersion=`cat $current_path/conf.ini | grep 'memcachedVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
+memcachedorNot=`cat $current_path/conf.ini | grep 'memcachedorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 
 msgpackVersion=`cat $current_path/conf.ini | grep 'msgpackVersion' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
 msgpackorNot=`cat $current_path/conf.ini | grep 'msgpackorNot' | awk -F':' '{ print $2 }' | sed s/[[:space:]]//g`
@@ -47,10 +47,10 @@ then
     source $current_path/redisBuild.sh $log $redisVersion
 fi
 
-if [ $libmemcachedorNot == 1 ]
+if [ $memcachedorNot == 1 ]
 then
     cd $current_path
-    source $current_path/libmemcachedBuild.sh $log $libmemcachedVersion
+    source $current_path/libmemcachedBuild.sh $log $memcachedVersion
 fi
 
 if [ $swooleorNot == 1 ]

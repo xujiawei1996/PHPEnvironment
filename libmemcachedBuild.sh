@@ -5,35 +5,33 @@ $version=$2
 
 #读取配置文件
 current_path=$(pwd)
-libmemcached="libmemcached-"${libmemcachedVersion}
-libmemcachedtar=${libmemcached}.tar.gz
+memcached="memcached-"$2
+memcachedtar=${memcached}.tgz
 
 cd /home/soft
 
-wget https://launchpad.net/libmemcached/1.0/$libmemcachedVersion/+download/$libmemcachedtar
+#下载
+if [ -f ${libmemcachedtar} ];then
+wget https://pecl.php.net/get/${memcachedtar}
+fi
 
-if [ $?==0 ];then echo ${libmemcached}" download success" >> $log;
-else echo ${libmemcached}" download fail" >> $log;fi
-tar -zxvf $libmemcached.tar.gz
-cd $libmemcached
+if [ -f ${memcachedtar} ]
+then echo ${memcachedtar}" download success" >> $log;
+else echo ${memcachedtar}" download fail" >> $log;exit;
+fi
+
+
+tar -zxvf  ${memcachedtar}
+cd $memcached
 /home/soft/php7/bin/phpize
-./configure --prefix=/home/soft/libmemcached --with-memcached
+./configure --prefix=/home/soft/memcached --with-memcached
 make && make install
-if [ $?==0 ];then echo ${libmemcached}" install success" >> $log;
-else echo ${libmemcached}" install fail" >> $log;exit;fi
-cd ..
+if [ $?==0 ];then echo ${memcached}" install success" >> $log;
+else echo ${memcached}" install fail" >> $log;exit;
+fi
 
 
+rm -rf /home/soft/$memcachedtar
+mv /home/soft/$memcached /home/soft/install/$memcached
 
-git clone https://github.com/php-memcached-dev/php-memcached.git
-if [ $?==0 ];then echo "memcached-2.2.0 download success" >> $log;
-else echo "memcached-2.2.0 download fail" >> $log;fi
-cd php-memcached/
-git checkout php7
-/home/soft/php7/bin/phpize
-./configure --with-php-config=/home/soft/php7/bin/php-config --with-libmemcached-dir=/home/soft/libmemcached --disable-memcached-sasl
-make && make install
-if [ $?==0 ];then echo "memcached-2.2.0 install success" >> $log;
-else echo "memcached-2.2.0 install fail" >> $log;exit;fi
-cd $current_path
 
