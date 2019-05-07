@@ -12,7 +12,8 @@ cd /home/soft
 #
 # 下载php7
 #
-if [ ! -f $php7tar ];then wget http://mirrors.sohu.com/php/$php7tar; fi
+if [ ! -f $php7tar ];then git clone https://github.com/php/php-src.git;
+fi
 
 if [ -f $php7tar ];then echo ${php7}" download success" >> $log;
 else echo ${php7}" download fail" >> $log;exit;fi
@@ -20,7 +21,7 @@ else echo ${php7}" download fail" >> $log;exit;fi
 #
 # 编译PHP引擎
 #
-tar zxvf $php7tar && cd ${php7}
+tar zxvf $php7tar && cd php-src && git checkout ${php7}
 ./configure --prefix=/home/soft/php7 --with-curl \
     --with-freetype-dir \
     --with-gd \
