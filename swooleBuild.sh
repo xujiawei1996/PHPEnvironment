@@ -57,3 +57,4 @@ fi
 
 rm -rf /home/soft/$swooletar
 mv /home/soft/$swoole /home/soft/install/$swoole
+cp /usr/local/lib/libnghttp2.so.14 /usr/lib/

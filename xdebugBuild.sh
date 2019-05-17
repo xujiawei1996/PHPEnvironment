@@ -4,7 +4,7 @@ log=$1
 
 #读取配置文件
 current_path=$(pwd)
-xdebug="msgpack-"$2
+xdebug="xdebug-"$2
 xdebugtar=${xdebug}.tgz
 
 if [ ! -f ${xdebugtar} ]; then  wget http://pecl.php.net/get/${xdebugtar}; fi
