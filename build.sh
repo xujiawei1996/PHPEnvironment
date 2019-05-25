@@ -62,13 +62,13 @@ fi
 if [ $msgpackorNot == 1 ]
 then
     cd $current_path
-    source $current_path/xdebugBuild.sh $log $msgpackVersion
+    source $current_path/msgpackBuild.sh $log $msgpackVersion
 fi
 
 if [ $xdebugorNot == 1 ]
 then
     cd $current_path
-    source $current_path/msgpackBuild.sh $log $xdebugVersion
+    source $current_path/xdebugBuild.sh $log $xdebugVersion
 fi
 
 cd /home/soft
